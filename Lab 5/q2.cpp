@@ -24,10 +24,26 @@ class Garage{
 		}
 		void listCars(){
 			for(size_t i=0;i<cars.size();i++){
-				cars[i]->display();
+				if(car[i]){
+				cars[i]->display();}
+				else{
+				cout<<"Attempting to Access unavailable data!"<<endl;
+				}
 			}
 		}
 };
+void demonstratePitfall() {
+    Garage garage;
+    {
+        Car tempCar("Temporary", 999);
+        garage.parkCar(&tempCar);
+        cout << "Inside scope:" << endl;
+        garage.listCars();
+    } 
+    
+    cout << "Outside scope:" << endl;
+    garage.listCars(); 
+}
 
 int main(){
 	Car car1("Toyota",101);
@@ -38,6 +54,9 @@ int main(){
 	garage.parkCar(&car2);
 	garage.parkCar(&car3);
 	garage.listCars();
+	
+	cout<<"Demonstrating Pitfall:"<<endl;
+	demonstratePitfall();
 	
 	return 0;
 }
